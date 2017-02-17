@@ -1,5 +1,5 @@
 {-# LANGUAGE ConstraintKinds, FlexibleContexts, GeneralizedNewtypeDeriving,
-             MultiParamTypeClasses, MultiWayIf #-}
+             MultiParamTypeClasses #-}
 
 module Rain
     ( collectWater
