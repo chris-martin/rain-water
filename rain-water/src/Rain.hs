@@ -17,7 +17,7 @@ class Multiplication a b c where
     (*) :: a -> b -> c
     infixl 7 *
 
--- | A width and a height multiple to form area in the normal geometric way.
+-- | A width and a height multiply to form area in the normal geometric way.
 instance Multiplication Width Height Area where
     Width w * Height h = Area (w Protolude.* h)
 
