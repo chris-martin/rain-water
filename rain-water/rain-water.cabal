@@ -17,25 +17,31 @@ library
   hs-source-dirs:      src
   exposed-modules:     Lib
   build-depends:       base >= 4.7 && < 5
+                     , protolude
                      , vector
   default-language:    Haskell2010
+  extensions:          NoImplicitPrelude
 
 executable rain-water-exe
   hs-source-dirs:      app
   main-is:             Main.hs
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N
   build-depends:       base
+                     , protolude
                      , rain-water
   default-language:    Haskell2010
+  extensions:          NoImplicitPrelude
 
 test-suite rain-water-test
   type:                exitcode-stdio-1.0
   hs-source-dirs:      test
   main-is:             Spec.hs
   build-depends:       base
+                     , protolude
                      , rain-water
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N
   default-language:    Haskell2010
+  extensions:          NoImplicitPrelude
 
 source-repository head
   type:     git
