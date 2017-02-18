@@ -26,7 +26,7 @@ instance Multiplication Height Width Area where
 
 class Subtraction a where
     (-) :: a -> a -> a
-    infixl -
+    infixl 6 -
 
 -- | For natural numbers, we take substraction to mean absolute difference, as
 -- subtraction in the normal integer sense would not be total.
