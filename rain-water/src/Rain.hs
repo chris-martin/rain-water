@@ -28,7 +28,7 @@ class Subtraction a where
     (-) :: a -> a -> a
     infixl 6 -
 
--- | For natural numbers, we take substraction to mean absolute difference, as
+-- | For natural numbers, we take subtraction to mean absolute difference, as
 -- subtraction in the normal integer sense would not be total.
 instance Subtraction Natural where
     a - b | a >= b    = a Protolude.- b
