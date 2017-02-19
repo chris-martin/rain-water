@@ -75,7 +75,7 @@ overlapFaces nearFace farFace = coerce (corners :: Corners)
     near = coerce nearFace :: Corners
     far  = coerce farFace  :: Corners
     (nearHeight, nearWidth) = faceSize near
-    far' = (<> nearWidth <> (Width 1)) <$> (snd $ Map.split nearHeight far)
+    far' = (<> nearWidth <> Width 1) <$> snd (Map.split nearHeight far)
     corners = near <> far'
 
 emptyFace :: Face a => a
@@ -101,30 +101,27 @@ emptyStructure :: Structure
 emptyStructure = Structure mempty mempty mempty
 
 waterBetween :: RightFace -> LeftFace -> Area
-waterBetween face face' = go (Map.toAscList (coerce face :: Corners))
-                             (Map.toAscList (coerce face' :: Corners))
-                             mempty
-                             mempty
+waterBetween face face' = fold $ go (Map.toAscList (coerce face :: Corners))
+                                    (Map.toAscList (coerce face' :: Corners))
+                                    mempty
   where
     go :: [(Height, Width)]
        -> [(Height, Width)]
        -> Height
-       -> Area
-       -> Area
+       -> [Area]
     go l@((heightL, depthL) : restL)
-       r@((heightR, depthR) : restR) floor acc = go l' r' floor' acc'
+       r@((heightR, depthR) : restR) floor = newWater : go l' r' floor'
       where
         (floor', l', r') = case compare heightL heightR of
             LT -> (heightL, restL, r    )
             GT -> (heightR, l,     restR)
             EQ -> (heightL, restL, restR)
 
-        acc'     = acc <> newWater
         newWater = raised * width
         raised   = floor' - floor
         width    = depthL <> depthR
 
-    go _ _ _ acc = acc
+    go _ _ _ = []
 
 structureSingleton :: Height -> Structure
 structureSingleton height = Structure face face mempty
