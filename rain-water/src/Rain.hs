@@ -3,6 +3,22 @@
 
 module Rain
   ( collectWater
+
+  -- * Math classes
+  , Multiplication (..)
+  , Subtraction (..)
+
+  -- * Geometric quantities
+  , Width (..)
+  , Height (..)
+  , Area (..)
+
+  -- * Water-holding structure
+  , Face
+  , LeftFace
+  , RightFace
+  , Structure (..)
+
   ) where
 
 import Data.Bool (otherwise)
