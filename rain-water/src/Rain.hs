@@ -51,7 +51,7 @@ type Corners = Map Height Width
 
 newtype LeftFace = LeftFace Corners
 
-newtype RightFace = RightFace Corners
+type RightFace = Dual LeftFace
 
 -- | The outer shape of a structure, and the amount of water it holds.
 data Structure = Structure { sLeft  :: LeftFace
@@ -84,10 +84,6 @@ emptyFace = coerce (Map.empty :: Corners)
 instance Semigroup LeftFace where near <> far = overlapFaces near far
 
 instance Monoid LeftFace where mappend = (<>); mempty = emptyFace
-
-instance Semigroup RightFace where far <> near = overlapFaces near far
-
-instance Monoid RightFace where mappend = (<>); mempty = emptyFace
 
 instance Semigroup Structure where
     Structure left right water <> Structure left' right' water' =
