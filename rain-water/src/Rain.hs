@@ -125,5 +125,11 @@ structureSingleton height = Structure face face mempty
     face :: Face a => a
     face = coerce (Map.singleton height mempty :: Corners)
 
+{- |
+
+>>> collectWater [2,5,1,3,1,2,1,7,7,6]
+17
+
+-}
 collectWater :: [Natural] -> Natural
 collectWater = coerce . sArea . foldMap (structureSingleton . coerce)
