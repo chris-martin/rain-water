@@ -5,12 +5,21 @@ module Rain
   ( collectWater
   ) where
 
-import           Data.Coerce (Coercible, coerce)
-import           Data.Map (Map)
+import Data.Bool (otherwise)
+import Data.Coerce (Coercible, coerce)
+import Data.Eq (Eq (..))
+import Data.Foldable (fold, foldMap, null)
+import Data.Functor ((<$>))
+import Data.Function ((.))
+import Data.Map (Map)
+import Data.Monoid (Dual (..), Monoid (..), Sum (..))
+import Data.Ord (Ord (..), Ordering (..))
+import Data.Semigroup (Semigroup (..))
+import Data.Tuple
+import Numeric.Natural (Natural)
+
 import qualified Data.Map as Map
-import           Numeric.Natural (Natural)
-import qualified Protolude
-import           Protolude hiding ((*), (-), floor)
+import qualified Prelude
 
 -- | Multiplication among heterogeneous types.
 class Multiplication a b c
@@ -21,11 +30,11 @@ class Multiplication a b c
 -- | A width and a height multiply to form area in the normal geometric way.
 instance Multiplication Width Height Area
   where
-    Width w * Height h = Area (w Protolude.* h)
+    Width w * Height h = Area (w Prelude.* h)
 
 instance Multiplication Height Width Area
   where
-    Height h * Width w = Area (w Protolude.* h)
+    Height h * Width w = Area (w Prelude.* h)
 
 class Subtraction a
   where
@@ -36,8 +45,8 @@ class Subtraction a
 -- subtraction in the normal integer sense would not be total.
 instance Subtraction Natural
   where
-    a - b | a >= b    = a Protolude.- b
-          | otherwise = b Protolude.- a
+    a - b | a >= b    = a Prelude.- b
+          | otherwise = b Prelude.- a
 
 instance Subtraction a => Subtraction (Sum a)
   where
