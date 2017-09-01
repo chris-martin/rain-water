@@ -142,9 +142,11 @@ waterBetween :: RightFace -> LeftFace -> Area
 waterBetween face face' = fold areas
   where
     areas :: [Area]
-    areas = go (Map.toAscList (coerce face :: Corners))
-            (Map.toAscList (coerce face' :: Corners))
-            mempty
+    areas =
+      go
+        (Map.toAscList (coerce face  :: Corners))
+        (Map.toAscList (coerce face' :: Corners))
+        mempty
 
     go :: [(Height, Width)]
        -> [(Height, Width)]
