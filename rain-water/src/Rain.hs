@@ -1,5 +1,5 @@
-{-# LANGUAGE ConstraintKinds, FlexibleContexts, GeneralizedNewtypeDeriving,
-             MultiParamTypeClasses #-}
+{-# LANGUAGE ConstraintKinds, FlexibleContexts, FunctionalDependencies,
+             GeneralizedNewtypeDeriving #-}
 
 module Rain
   ( collectWater
@@ -38,7 +38,7 @@ import qualified Data.Map as Map
 import qualified Prelude
 
 -- | Multiplication among heterogeneous types.
-class Multiplication a b c
+class Multiplication a b c | a b -> c
   where
     (*) :: a -> b -> c
     infixl 7 *
